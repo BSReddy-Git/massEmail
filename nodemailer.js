@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const hbs = require('nodemailer-handlebars');
 const log = console.log;
+ let list=[]
 
 // Step 1
 let transporter = nodemailer.createTransport({
@@ -15,6 +16,13 @@ transporter.use('compile', hbs({
     viewEngine: 'express-handlebars',
     viewPath: './views/'
 }));
+fs.readFile('./dummy.json', (err,data)=>{
+    (JSON.parse(data).map(val=>{
+         list.push(val.email)
+         return list;
+     }))
+     console.log(list);
+})
 
 
 // Step 3
