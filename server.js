@@ -7,7 +7,7 @@ let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'shiva.v.s.ip@gmail.com' , 
-        pass: 'vidyasagar8977' 
+        pass: 'vidyasagar8977' }
 });
 
 // Step 2
@@ -20,7 +20,7 @@ transporter.use('compile', hbs({
 // Step 3
 let mailOptions = {
     from: 'shiva.v.s.ip@gmail.com', 
-    to: 'b.skreddy1997@gmail.com', 
+    to: 'b.skreddy1997@gmail.com, srinivas@innova-path.com', 
     subject: 'Nodemailer - Test',
     html:({path:'http://localhost:3000/'})
     // text: 'Innovapath',
