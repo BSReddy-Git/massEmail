@@ -1,10 +1,3 @@
-/*
-    Video: https://www.youtube.com/watch?v=38aE1lSAJZ8
-    Don't forget to disable less secure app from Gmail: https://myaccount.google.com/lesssecureapps TODO:
-*/
-
-
-
 const nodemailer = require('nodemailer');
 const hbs = require('nodemailer-handlebars');
 const log = console.log;
@@ -13,9 +6,8 @@ const log = console.log;
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'shiva.v.s.ip@gmail.com' || 'abc@gmail.com', // TODO: your gmail account 
-        pass: 'vidyasagar8977' || '1234' // TODO: your gmail password
-    }
+        user: 'shiva.v.s.ip@gmail.com' , 
+        pass: 'vidyasagar8977' 
 });
 
 // Step 2
@@ -27,14 +19,15 @@ transporter.use('compile', hbs({
 
 // Step 3
 let mailOptions = {
-    from: 'shiva.v.s.ip@gmail.com', // TODO: email sender
-    to: 'b.skreddy1997@gmail.com', // TODO: email receiver
+    from: 'shiva.v.s.ip@gmail.com', 
+    to: 'b.skreddy1997@gmail.com', 
     subject: 'Nodemailer - Test',
-    text: 'Wooohooo it works!!',
-    template: 'index',
-    context: {
-        name: 'Accime Esterling'
-    } // send extra values to template
+    html:({path:'http://localhost:3000/'})
+    // text: 'Innovapath',
+    // template: 'index',
+    // context: {
+    //     name: 'Accime Esterling'
+    // } 
 };
 
 // Step 4
