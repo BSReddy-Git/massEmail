@@ -19,16 +19,14 @@ con.connect(function(err) {
       // console.log(val);
     }
   );
-});
-
-con.connect(function(err){
-  if(err) throw err;
   con.query('select email from marketing_distribution_list',
   async (err,emailsData)=>{
-    exports.emails = await emailsData;
+    // exports.emails = await emailsData;
     fs.writeFile('emailsList.JSON', JSON.stringify(emailsData), (err,data)=>{
         if(err) throw err;
         console.log('Success');
     })
   })
 });
+
+

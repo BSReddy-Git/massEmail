@@ -1,7 +1,9 @@
 const nodemailer = require('nodemailer');
 const hbs = require('nodemailer-handlebars');
 const log = console.log;
- let list=[]
+const fs=require('fs');
+ let list=[];
+
 
 // Step 1
 let transporter = nodemailer.createTransport({
@@ -16,6 +18,8 @@ transporter.use('compile', hbs({
     viewEngine: 'express-handlebars',
     viewPath: './views/'
 }));
+
+// Step 3
 fs.readFile('./dummy.json', (err,data)=>{
     (JSON.parse(data).map(val=>{
          list.push(val.email)
@@ -23,25 +27,19 @@ fs.readFile('./dummy.json', (err,data)=>{
      }))
      console.log(list);
 })
-
-
-// Step 3
 let mailOptions = {
     from: 'shiva.v.s.ip@gmail.com', 
-    to: 'b.skreddy1997@gmail.com, srinivas@innova-path.com', 
+    to: '',
+    bcc:list, 
     subject: 'Nodemailer - Test',
     html:({path:'http://localhost:3000/'})
-    // text: 'Innovapath',
-    // template: 'index',
-    // context: {
-    //     name: 'Accime Esterling'
-    // } 
+   
 };
 
 // Step 4
 transporter.sendMail(mailOptions, (err, data) => {
     if (err) {
-        return log('Error occurs');
+        return log(err);
     }
     return log('Email sent!!!');
 });
