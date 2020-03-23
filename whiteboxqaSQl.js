@@ -14,15 +14,15 @@ con.connect(function(err) {
   con.query(
     "select c.name, cm.currentlocation, cm.relocation, cm.intro from candidatemarketing cm, candidate c where cm.candidateid = c.candidateid and cm.`status` = '0-InProgress' and cm.priority ='P1'  and c.`status` in ('Marketing', 'Placed-Mkt') and LENGTH(cm.priority) > 0 and cm.relocation in ('Y','N') order by cm.priority desc LIMIT 10",
     async (err, result) => {
-      // console.log(result);
+      
       exports.val = await result;
-      // console.log(val);
+    
     }
   );
-  con.query('select email from marketing_distribution_list',
+  con.query("select email, remove from marketing_distribution_list where remove='N' ",
   async (err,emailsData)=>{
-    // exports.emails = await emailsData;
-    fs.writeFile('emailsList.JSON', JSON.stringify(emailsData), (err,data)=>{
+    
+    fs.writeFile('emailsList.json', JSON.stringify(emailsData), (err,data)=>{
         if(err) throw err;
         console.log('Success');
     })

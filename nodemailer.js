@@ -32,7 +32,11 @@ let mailOptions = {
     to: '',
     bcc:list, 
     subject: 'Nodemailer - Test',
-    html:({path:'http://localhost:3000/'})
+    html:({path:'http://localhost:3000/'}),
+    list:{
+    unsubscribe:{
+        url:'http://localhost:3000/'
+    }}
    
 };
 
