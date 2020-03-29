@@ -24,7 +24,7 @@ con.connect(function(err) {
     
     fs.writeFile('emailsList.json', JSON.stringify(emailsData), (err,data)=>{
         if(err) throw err;
-        console.log('Success');
+        // console.log('Success');
     })
   })
 });
