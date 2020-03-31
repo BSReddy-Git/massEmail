@@ -11,7 +11,7 @@ const con = sql.createConnection({
 function emailDistribution(count, callback) {
   console.log("calling emailDistribution method");
   con.query(
-    "select c.name, cm.currentlocation, cm.relocation, cm.intro from candidatemarketing cm, candidate c where cm.candidateid = c.candidateid and cm.`status` = '0-InProgress' and cm.priority ='P1'  and c.`status` in ('Marketing', 'Placed-Mkt') and LENGTH(cm.priority) > 0 and cm.relocation in ('Y','N') order by cm.priority desc LIMIT " +
+    "select c.name, cm.currentlocation,c.workstatus,cm.relocation, cm.intro from candidatemarketing cm, candidate c where cm.candidateid = c.candidateid and cm.`status` = '0-InProgress' and cm.priority ='P1'  and c.`status` in ('Marketing', 'Placed-Mkt') and LENGTH(cm.priority) > 0 and cm.relocation in ('Y','N') order by cm.priority desc LIMIT " +
       count,
     callback
   );
@@ -50,7 +50,7 @@ module.exports = {
           if (index === properties.length - 1) {
             emailDistribution(vm.candidateTotalCount, (err, candidate) => {
               if (err) {
-                console.log("error from emaiDistributon");
+                console.log("error from emaiDistributon", err);
               } else {
                 console.log("getting candidate info from  active marketing");
                 vm.candidateDetails = [];
