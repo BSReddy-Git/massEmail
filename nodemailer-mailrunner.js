@@ -3,9 +3,10 @@ const hbs = require("nodemailer-handlebars");
 const info = require("./mass-email-distribution");
 const fs = require("fs");
 
-let list = [];
+let vendor = [];
 const log = console.log;
 info.run();
+
 
 // // Step 1
 let transporter = nodemailer.createTransport({
@@ -26,29 +27,41 @@ transporter.use(
 );
 fs.readFile("./dummy.json", (err, data) => {
   JSON.parse(data).map(val => {
-    list.push(val.email);
-    return list;
+    vendor.push(val.email);
+    return vendor;
   });
-  console.log(list);
-});
+  console.log(vendor);
+}); //
+
 async function runner() {
   var obj = await info.data;
+  var replytoemail=await info.data.reply_to
+
   setTimeout(() => {
-    console.log(typeof obj.replyto);
+    console.log(obj.reply_to);
+ 
     let mailOptions = {
       from: obj.from_email,
-      to: "",
-      bcc: obj.test_email,
+     
       subject: obj.subject,
       html: { path: "http://localhost:3000/" },
       
       list: {
         unsubscribe: {
-          url: "http://localhost:3000/"
+          url: "https://www.w3schools.com/"
         }
       },
-      inReplyTo:'marketing@innova-path.com',
+      
+      replyTo: replytoemail,
+      inReplyTo:replytoemail,
     };
+    if(obj.run_type==='TEST'){
+        mailOptions.to=obj.test_email
+        console.log('sending test email')
+    }
+    else{
+      mailOptions.bcc=vendor
+    }
     transporter.sendMail(mailOptions, (err, data) => {
       if (err) {
         return log(err);
@@ -57,8 +70,7 @@ async function runner() {
     });
   }, 20000);
 }
-//  console.log(mailOptions)
+
 // Innovapath<engr1@innova-path.com></engr1@innova-path.com>
 runner();
-// // Step 3
-//
+
