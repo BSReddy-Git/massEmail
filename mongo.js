@@ -1,7 +1,5 @@
 var mongoose = require("mongoose");
- const  Schema = mongoose.Schema({
-    _id: Object
-});
+
  
 
 
@@ -37,5 +35,4 @@ var mongoose = require("mongoose");
     }
     
 );
-//  const domain = db.model('distributionInvalidDomains', Schema, 'distributionInvalidDomains')
-//  console .log (domain)
+
